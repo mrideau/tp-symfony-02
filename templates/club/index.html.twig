@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+
+    <section class="grid md:grid-cols-2 gap-6">
+        {% for club in clubs %}
+
+            <a href="{{ path('app_club_show', {slug: club.slug}) }}">
+                {{ club.name }}
+            </a>
+
+        {% endfor %}
+    </section>
+
+{% endblock %}

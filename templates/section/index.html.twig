@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="p-6">
+            <h1 class="text-5xl font-bold">Sections sportives</h1>
+            <p>xxx accueille plus de xxx sections sportives</p>
+        </div>
+
+        <section class="grid gap-6">
+            {% for section in sections %}
+
+                <a class="shadow rounded" href="{{ path('app_section_show', {slug: section.slug}) }}">
+                    {#                <acrticle class="">#}
+                    {#                    <img class="rounded" class="" src="/uploads/{{ section.imageUrl }}" alt="">#}
+                    {#                    <div class="p-4">#}
+                    {#                        <h2>{{ section.name }}</h2>#}
+                    {#                        {{ section.description|raw }}#}
+                    {#                    </div>#}
+                    {#                </acrticle>#}
+
+                    <article>
+{#                        <img class="h-40 w-full object-cover" class="" src="/uploads/{{ section.imageUrl }}" alt="">#}
+                        <div class="bg-gradient-to-t from-black to-transparent text-white p-6">
+                            <h2 class="text-lg font-bold">{{ section.name }}</h2>
+                        </div>
+                    </article>
+
+                </a>
+
+            {% endfor %}
+        </section>
+    </div>
+
+{% endblock %}
