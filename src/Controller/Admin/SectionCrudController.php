@@ -4,11 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Section;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 
 class SectionCrudController extends AbstractCrudController
 {
@@ -22,14 +21,57 @@ class SectionCrudController extends AbstractCrudController
         return [
 //            IdField::new('id'),
             TextField::new('name'),
-            TextField::new('slug'),
+            SlugField::new('slug')->setTargetFieldName('name'),
             TextEditorField::new('description'),
+//            ImageField::new('image_url')
+//                ->setBasePath('uploads')
+//                ->setUploadDir('public/uploads')
             ImageField::new('image_url')
                 ->setBasePath('uploads')
                 ->setUploadDir('public/uploads')
-                ->setFormType(FileUploadType::class)
+                ->setFormTypeOptions([
+                    'required' => false
+                ])
             ,
-            TextEditorField::new('content'),
         ];
     }
+
+//    public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
+//    {
+//        $formBuilder = parent::createNewFormBuilder($entityDto, $formOptions, $context);
+//        return $this->addPasswordEventListener($formBuilder);
+//    }
+//
+//    public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
+//    {
+//        $formBuilder = parent::createEditFormBuilder($entityDto, $formOptions, $context);
+//        return $this->addPasswordEventListener($formBuilder);
+//    }
+//
+//    private function addPasswordEventListener(FormBuilderInterface $formBuilder): FormBuilderInterface
+//    {
+//        return $formBuilder->addEventListener(FormEvents::PRE_SUBMIT, $this->optimizeImage());
+//    }
+//
+//    private function optimizeImage() {
+//        return function(PreSubmitEvent $event) {
+//            $form = $event->getForm();
+//            if (!$form->isValid()) {
+//                return;
+//            }
+//            $image = $form->get('image')->getData();
+//            if ($image === null) {
+//                return;
+//            }
+
+//            dd($event->getData()['image']);
+//
+//            dd($form->get('image')->getData());
+//
+//            dd($image);
+
+//            $hash = $this->userPasswordHasher->hashPassword($this->getUser(), $image);
+//            $form->getData()->setPassword($hash);
+//        };
+//    }
 }

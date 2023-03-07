@@ -1,19 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Club {{ club.name }}{% endblock %}
 
 {% block body %}
 
+    <div class="container-fluid bg-cover bg-center h-[250px] md:h-[400px]"
+         style="background-image: url('/uploads/{{ club.imageUrl }}')">
+
+    </div>
+
     <div class="container mx-auto">
-        <h1 class="text-5xl font-bold">{{ club.name }}</h1>
+        <section>
+            <h1 class="h1">Club {{ club.name }}</h1>
+            {#        <nav aria-label="breadcrumb"> #}
+            {#            <ol class="breadcrumb"> #}
+            {#                <li class="breadcrumb-item"><a href="{{ path('app_section_index') }}">Sections</a></li> #}
+            {#                <li class="breadcrumb-item active" aria-current="page">{{ club.name }}</li> #}
+            {#            </ol> #}
+            {#        </nav> #}
 
-        <div class="mt-6">
-            {{ club.description | raw }}
-        </div>
+            <div class="lead">
+                {{ club.description | raw }}
+            </div>
+        </section>
 
-        <div class="mt-6">
-            {{ club.content | raw }}
-        </div>
+        <section>
+            <h2 class="h2">Licenciés</h2>
+
+
+            <ul>
+                {% if club.licensees.count > 0 %}
+                    {% for licensee in club.licensees %}
+
+                        <li>{{ licensee.user.fullname }}</li>
+
+                    {% endfor %}
+                {% else %}
+                    <p class="">Il n'y a actuellement aucuns licenciés dans ce club.</p>
+                {% endif %}
+            </ul>
+
+
+        </section>
     </div>
 
 {% endblock %}

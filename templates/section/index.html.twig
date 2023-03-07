@@ -1,37 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Sections{% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <div class="p-6">
-            <h1 class="text-5xl font-bold">Sections sportives</h1>
-            <p>xxx accueille plus de xxx sections sportives</p>
-        </div>
+        <section>
+            <h1 class="h1">Sections sportives</h1>
+            <p class="lead">Le club propose {{ sections | length }} sections sportives aux licenciés. Les sections sont gérées par des entraîneurs et des instructeurs bien formés qui offrent des instructions de qualité.</p>
+        </section>
 
-        <section class="grid gap-6">
-            {% for section in sections %}
+        <section>
+            <h2 class="h2">Liste des sections</h2>
+            <div class="grid grid-flow-row md:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-4">
 
-                <a class="shadow rounded" href="{{ path('app_section_show', {slug: section.slug}) }}">
-                    {#                <acrticle class="">#}
-                    {#                    <img class="rounded" class="" src="/uploads/{{ section.imageUrl }}" alt="">#}
-                    {#                    <div class="p-4">#}
-                    {#                        <h2>{{ section.name }}</h2>#}
-                    {#                        {{ section.description|raw }}#}
-                    {#                    </div>#}
-                    {#                </acrticle>#}
+                {% for section in sections %}
 
-                    <article>
-{#                        <img class="h-40 w-full object-cover" class="" src="/uploads/{{ section.imageUrl }}" alt="">#}
-                        <div class="bg-gradient-to-t from-black to-transparent text-white p-6">
-                            <h2 class="text-lg font-bold">{{ section.name }}</h2>
-                        </div>
-                    </article>
+                    <a class="group {% if loop.index is odd and loop.last %} md:col-span-2 {% endif %}" href="{{ path('app_section_show', {slug: section.slug}) }}">
+                        <article class="relative h-full overflow-hidden rounded">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition duration-400" class="" src="/uploads/{{ section.imageUrl }}" alt="" loading="lazy">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent text-white px-6 py-3">
+                                <h2 class="text-lg font-bold">{{ section.name }}</h2>
+                            </div>
+                        </article>
 
-                </a>
+                    </a>
 
-            {% endfor %}
+                {% endfor %}
+            </div>
         </section>
     </div>
 

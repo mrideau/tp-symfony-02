@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: SectionRepository::class)]
 class Section
@@ -22,17 +23,16 @@ class Section
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image_url = null;
 
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: Club::class)]
     private Collection $clubs;
+
+//    private $image;
 
     public function __construct()
     {
@@ -80,18 +80,6 @@ class Section
         return $this;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function getImageUrl(): ?string
     {
         return $this->image_url;
@@ -133,6 +121,14 @@ class Section
 
         return $this;
     }
+
+//    public function getImage(): ?File {
+//        return $this->image;
+//    }
+//
+//    public function setImage(?File $file) {
+//        $this->image = $file;
+//    }
 
     public function __toString(): string
     {

@@ -1,35 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Section {{ section.name }}{% endblock %}
 
 {% block body %}
 
-    <div class="container mx-auto">
-        <section class="relative p-10 h-1/3" style="background-image: url('/uploads/{{ section.imageUrl }}')">
+    <div class="container-fluid bg-cover bg-center h-[250px] md:h-[400px]" style="background-image: url('/uploads/{{ section.imageUrl }}')">
 
+    </div>
+
+    <div class="container">
+
+        <section>
+            <h1 class="h1">Section {{ section.name }}</h1>
+            {#        <nav aria-label="breadcrumb">#}
+            {#            <ol class="breadcrumb">#}
+            {#                <li class="breadcrumb-item"><a href="{{ path('app_section_index') }}">Sections</a></li>#}
+            {#                <li class="breadcrumb-item active" aria-current="page">{{ section.name }}</li>#}
+            {#            </ol>#}
+            {#        </nav>#}
+
+            <div class="lead">{{ section.description | raw }}</div>
         </section>
 
-        <h1 class="text-5xl font-bold uppercase">{{ section.name }}</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ path('app_section_index') }}">Sections</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ section.name }}</li>
-            </ol>
-        </nav>
+        <section>
+            <h2 class="h2">Clubs</h2>
+            <ul class="flex flex-col gap-2">
+                {% if section.clubs.count > 0 %}
+                    {% for club in section.clubs %}
 
-        <ul class="mt-5">
-            {% for club in section.clubs %}
+                        <li>
+                            <a class="inline-block p-2 rounded bg-neutral-200" href="{{ path('app_club_show', {slug: club.slug}) }}">
+                                <h2>{{ club.name }}</h2>
+                            </a>
+                        </li>
 
-                <li>
-                    <a href="{{ path('app_club_show', {slug: club.slug}) }}">
-                        <article>
-                            <h2>{{ club.name }}</h2>
-                        </article>
-                    </a>
-                </li>
-
-            {% endfor %}
-        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p class="">Il n'y a actuellement aucuns clubs dans cette section.</p>
+                {% endif %}
+            </ul>
+        </section>
     </div>
 
 {% endblock %}

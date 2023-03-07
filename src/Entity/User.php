@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,6 +35,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Licensee::class, orphanRemoval: true)]
+    private Collection $licensees;
+
+    public function __construct()
+    {
+        $this->licensees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,5 +136,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Licensee>
+     */
+    public function getLicensees(): Collection
+    {
+        return $this->licensees;
+    }
+
+    public function addLicensee(Licensee $licensee): self
+    {
+        if (!$this->licensees->contains($licensee)) {
+            $this->licensees->add($licensee);
+            $licensee->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLicensee(Licensee $licensee): self
+    {
+        if ($this->licensees->removeElement($licensee)) {
+            // set the owning side to null (unless already changed)
+            if ($licensee->getUser() === $this) {
+                $licensee->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFullname(): string {
+        return $this->getFirstname() . ' ' . $this->getLastname();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getFullname();
     }
 }

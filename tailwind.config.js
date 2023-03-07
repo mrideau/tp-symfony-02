@@ -5,6 +5,10 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
+    fontFamily: {
+      sans: ['Merriweather Sans', 'sans-serif'],
+      // serif: ['Merriweather', 'serif'],
+    },
     container: {
       center: true,
       padding: {

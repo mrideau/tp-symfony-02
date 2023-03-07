@@ -1,38 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Club Omnisport{% endblock %}
 
 {% block body %}
 
-    <main class="">
+    <div class="bg-cover bg-center" style="background-image: url('{{ asset('images/hero.jpg') }}')">
+        <div class="flex h-full bg-black/40">
+            <article class="container my-auto py-10 lg:py-32 lg:w-1/2 text-white text-center">
+                <h1 class="text-5xl font-bold text-white mb-5">Animez votre passion du sport</h1>
+                <p>Le sport est un outil puissant pour maintenir et améliorer la santé.</p>
+                <div class="mt-10">
+{#                    <a class="btn primary" href="{{ path('app_section_index') }}">Sections sportives</a>#}
+                </div>
+            </article>
+        </div>
+    </div>
 
-        <section class="bg-cover bg-center md:h-[500px]" style="background-image: url('{{ asset('images/hero.jpg') }}')">
-            <div class="container-fluid h-full p-10 bg-gradient-to-br from-black/30 to-transparent">
-                <article class="container text-white">
-                    <h1 class="text-5xl font-bold text-white">Animez votre passion du sport !</h1>
-                    <p>Rejoignez l'un de nos xxx clubs</p>
-                    <div class="mt-10">
-                        {#                    <a class="btn outlined" href="{{ path('app_club_index') }}">Clubs</a>#}
-                        <a class="btn primary" href="{{ path('app_section_index') }}">Sections sportives</a>
-                    </div>
-                </article>
-            </div>
-        </section>
+    <div class="container">
+        <section class="flex flex-col lg:flex-row gap-5">
 
-        <section class="container mx-auto">
-
-            <div class="flex gap-6 snap-x snap-mandatory overflow-x-auto p-2">
-
-                <article class="group relative w-full md:w-1/2 lg:w-1/3 h-64 snap-always snap-center rounded-2 bg-cover" style="background-image: url('https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80')">
-                    <div class="absolute top-0 bottom-0 left-0 right-0 text-white flex items-end p-3">
-                        <h3 class="text-2xl font-bold">Football</h3>
-                    </div>
-                </article>
-
+            <div class="flex-1 aspect-video overflow-hidden">
+                <img class="w-full h-full object-cover rounded" src="{{ asset('images/about.jpg') }}" alt="About image" loading="lazy">
             </div>
 
-        </section>
+            <div class="flex-1 flex flex-col gap-5">
+                <article>
+                    <h2 class="h2">Le Club</h2>
+                    <p class="lead">Depuis 20 ans, le club offre à la ville une variété de sections sportives. C'est un lieu de rassemblement pour les gens de tous âges et de tous niveaux de compétence et offre des opportunités pour s'amuser, faire des amis et s'entraîner. Il est un excellent moyen de s'impliquer dans la communauté et de renforcer un esprit d'équipe. Le club offre des avantages sociaux et physiques et permet aux membres de s'épanouir de manière saine et productive.</p>
+                </article>
 
-    </main>
+                <article>
+                    <h2 class="h2">Les Sections Sportives</h2>
+                    <p class="lead">Les sections offertes comprennent le football, le basketball, le volleyball, le tennis, la natation et plus encore. Tous les sports sont ouverts à tous, peu importe l'âge ou le niveau de compétence. Les entraîneurs sont bien formés et disposés à aider les membres à atteindre leurs objectifs.</p>
+                </article>
+
+                <div>
+                    <a class="btn primary" href="{{ path('app_section_index') }}">Voir les sections</a>
+                </div>
+            </div>
+
+        </section>
+    </div>
 
 {% endblock %}

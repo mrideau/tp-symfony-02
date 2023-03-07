@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Field;
+
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;

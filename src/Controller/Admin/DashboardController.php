@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Club;
+use App\Entity\Licensee;
 use App\Entity\Section;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -43,10 +45,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::section('Sports');
+        yield MenuItem::section('Activités');
         yield MenuItem::linkToCrud('Sections', 'fas fa-list', Section::class);
         yield MenuItem::linkToCrud('Clubs', 'fas fa-list', Club::class);
-
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::section('Membres');
+        yield MenuItem::linkToCrud('Licences', 'fas fa-list', Licensee::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
     }
 }

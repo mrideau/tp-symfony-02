@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClubRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,11 +22,8 @@ class Club
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $imageUrl = null;
@@ -32,6 +31,14 @@ class Club
     #[ORM\ManyToOne(inversedBy: 'clubs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Section $section = null;
+
+    #[ORM\OneToMany(mappedBy: 'club', targetEntity: Licensee::class)]
+    private Collection $licensees;
+
+    public function __construct()
+    {
+        $this->licensees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,18 +81,6 @@ class Club
         return $this;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function getImageUrl(): ?string
     {
         return $this->imageUrl;
@@ -108,5 +103,40 @@ class Club
         $this->section = $section;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Licensee>
+     */
+    public function getLicensees(): Collection
+    {
+        return $this->licensees;
+    }
+
+    public function addLicensee(Licensee $licensee): self
+    {
+        if (!$this->licensees->contains($licensee)) {
+            $this->licensees->add($licensee);
+            $licensee->setClub($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLicensee(Licensee $licensee): self
+    {
+        if ($this->licensees->removeElement($licensee)) {
+            // set the owning side to null (unless already changed)
+            if ($licensee->getClub() === $this) {
+                $licensee->setClub(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

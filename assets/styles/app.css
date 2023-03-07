@@ -10,6 +10,42 @@ html, body {
 }
 
 @layer components {
+    .hero {
+
+    }
+
+    .hero-content {
+        @apply relative h-full w-full;
+    }
+
+    section {
+        @apply my-20;
+    }
+
+    .h1 {
+        @apply inline-block mb-4 text-4xl font-bold;
+    }
+
+    /*.h1::after {*/
+    /*    content: '';*/
+    /*    @apply block bg-primary rounded w-full;*/
+    /*    height: 5px;*/
+    /*}*/
+
+    .h2 {
+        @apply inline-block mb-2 text-2xl font-bold;
+    }
+
+    .h2::after {
+        content: '';
+        @apply block bg-primary rounded w-full;
+        height: 5px;
+    }
+
+    .lead {
+        @apply leading-relaxed tracking-wide;
+    }
+
     .btn {
         @apply inline-block;
         @apply px-5 py-2;
